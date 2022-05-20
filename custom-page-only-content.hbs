@@ -1,0 +1,68 @@
+{{!--
+This template is used for pages.
+--}}
+
+{{!-- This block preloads specific assets for the post page --}}
+{{#contentFor "preload"}}
+  <link rel="preload" href="{{asset "css/post.css"}}" as="style" />
+{{/contentFor}}
+
+{{!-- This block loads specific styles for the post page --}}
+{{#contentFor "styles"}}
+  <link rel="stylesheet" type="text/css" href="{{asset "css/post.css"}}" media="screen" />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<main class="main-wrap">
+  {{> header}}
+  {{!-- Everything inside the #post tags pulls data from the post --}}
+  {{#post}}
+  <article>
+    {{#if feature_image}}
+      <section class="m-article-hero" data-aos="fade">
+        {{> hero-background background=feature_image}}
+        <div class="m-article-hero__content">
+          <h1 class="m-article-title">{{title}}</h1>
+          {{#if custom_excerpt}}
+            <p class="m-article-excerpt">{{custom_excerpt}}</p>
+          {{/if}}
+        </div>
+      </section>
+    {{/if}}
+    <section class="l-article-wrapper {{#unless feature_image}}no-hero{{/unless}}" data-aos="fade-up">
+      <div class="l-article-wrapper__container">
+        <header class="m-article-header {{#unless feature_image}}no-hero{{/unless}}">
+          <h1 class="m-article-title">{{title}}</h1>
+          {{#if custom_excerpt}}
+            <p class="m-article-excerpt">{{custom_excerpt}}</p>
+          {{/if}}
+        </header>
+        <div class="m-article-divider {{#unless feature_image}}no-hero{{/unless}}"></div>
+        <section class="m-article-content js-post-content {{#unless feature_image}}no-hero{{/unless}}">
+          {{#if access}}
+            {{!-- if the user has access to this post, show it to them --}}
+            {{content}}
+          {{else}}
+            {{{html}}}
+            {{!-- if the user does not have access, show them an upgrade CTA --}}
+            <p class="align-center">
+              {{t "You don't have access to this post at the moment, but if you upgrade your account you'll be able to see the
+                      whole thing, as well as all the other posts in the archive! Subscribing only takes a few seconds and will give you
+                      immediate access."}}
+            </p>
+            {{> "full-content"}}
+          {{/if}}
+        </section>
+      </div>
+    </section>
+  </article>
+  {{/post}}
+</main>
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+  <script defer src="{{asset "js/post.js"}}"></script>
+{{/contentFor}}

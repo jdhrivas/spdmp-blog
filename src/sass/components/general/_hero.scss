@@ -1,0 +1,50 @@
+.m-hero {
+  position: relative;
+  height: calc(100vh - #{$mobile-bar-height});
+  border-bottom: 1px solid var(--background-color);
+  background-color: var(--primary-foreground-color);
+
+  @include respond-to('medium') {
+    height: 460px !important;
+    border-bottom: 0;
+  }
+
+  &.no-image {
+    height: auto !important;
+    border-bottom: 0;
+    background-color: transparent;
+
+    @include respond-to('medium') {
+      padding-top: 75px;
+    }
+
+    .m-hero__content {
+      display: block;
+      height: auto;
+      padding: 0;
+    }
+  }
+}
+
+.m-hero__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 1;
+}
+
+.m-hero__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  height: 100%;
+  padding: 0 $mobile-space;
+  z-index: 2;
+}

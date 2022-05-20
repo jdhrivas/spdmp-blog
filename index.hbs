@@ -1,0 +1,58 @@
+{{!--
+This template is used for the index page.
+It can be used also as the home page or the default page.
+--}}
+
+{{!-- This block loads specific styles for the index page --}}
+{{#contentFor "styles"}}
+  <link rel="preload" href="{{asset "css/home.css"}}" as="style" />
+  <link rel="preload" href="{{asset "css/listing.css"}}" as="style" />
+  <link rel="stylesheet" type="text/css" href="{{asset "css/home.css"}}" media="screen" />
+  <link rel="stylesheet" type="text/css" href="{{asset "css/listing.css"}}" media="screen" />
+{{/contentFor}}
+
+{{!-- The tag below means: insert everything in this file
+into the {body} of the default.hbs template --}}
+{{!< default}}
+
+<div class="main-wrap">
+  {{> header}}
+  <main>
+    {{#is "home"}}
+      {{#if @custom.disable_featured_articles_section}}
+        {{> "home-hero"}}
+      {{else}}
+        {{> "home-slider"}}
+      {{/if}}
+    {{/is}}
+    <div class="l-wrapper">
+      <div class="l-content">
+        <div class="l-posts-container">
+          {{#foreach posts}}
+            {{!-- The tag below includes the markup for each post - partials/post-card.hbs --}}
+            {{> "post-card"}}
+            {{else}}
+            {{> "no-posts"}}
+          {{/foreach}}
+        </div>
+        {{!-- Links to Previous/Next posts --}}
+        {{pagination}}
+      </div>
+    </div>
+    {{!-- Newsletter subscription form at the bottom of the page --}}
+    {{#if @labs.members}}
+      <section class="m-newsletter-section">
+        <div class="l-wrapper">
+          <div class="m-newsletter__content">
+            {{> "newsletter-form"}}
+          </div>
+        </div>
+      </section>
+    {{/if}}
+  </main>
+</div>
+
+{{!-- The #contentFor helper here will send everything inside it up to the matching #block helper found in default.hbs --}}
+{{#contentFor "scripts"}}
+  <script defer src="{{asset "js/home.js"}}"></script>
+{{/contentFor}}

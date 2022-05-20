@@ -1,0 +1,40 @@
+.m-logo {
+  display: inline-block;
+
+  &.in-mobile-topbar {
+    margin: 0 $mobile-space;
+
+    img {
+      height: 25px;
+    }
+  }
+
+  &.in-desktop-topbar {
+    flex-shrink: 0;
+    margin-right: 50px;
+    @include transform(translateY(-3px));
+
+    img {
+      height: 35px;
+    }
+  }
+
+  img {
+    width: auto;
+
+    &.m-logo__image-light {
+      display: var(--toggle-darkmode-button-display-moon);
+    }
+
+    &.m-logo__image-dark {
+      display: var(--toggle-darkmode-button-display-sun);
+    }
+  }
+}
+
+.rtl {
+  .m-logo.in-desktop-topbar {
+    margin-right: 0;
+    margin-left: 50px;
+  }
+}

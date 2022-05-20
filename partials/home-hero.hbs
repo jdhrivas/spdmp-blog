@@ -1,0 +1,45 @@
+<section class="m-hero {{^if @site.cover_image}}no-image{{/if}} {{^if @custom.use_publication_cover}}no-image{{/if}} {{#if @custom.use_publication_cover}}use-cover-image{{/if}}">
+  {{#if @custom.use_publication_cover}}
+    {{#if @site.cover_image}}
+      <style>
+        .m-hero__background {
+          background-image: url({{img_url @site.cover_image size='xl'}});
+        }
+        @media(max-width: 1000px) {
+          .m-hero__background {
+            background-image: url({{img_url @site.cover_image size='l'}});
+          }
+        }
+        @media(max-width: 600px) {
+          .m-hero__background {
+            background-image: url({{img_url @site.cover_image size='m'}});
+          }
+        }
+      </style>
+      <div class="m-hero__background"></div>
+    {{/if}}
+  {{/if}}
+  <div class="m-hero__content">
+    <div class="m-blog-heading in-hero {{^if @site.cover_image}}no-image{{/if}} {{^if @custom.use_publication_cover}}no-image{{/if}}" data-aos="fade">
+      <h1 class="m-blog-heading__title">{{@site.title}}</h1>
+      {{#if @site.description}}
+        <p class="m-blog-heading__description {{#if @member}}no-margin{{/if}}">
+          {{@site.description}}
+        </p>
+      {{/if}}
+      {{#if @custom.use_custom_cta}}
+        <a href="{{@custom.custom_cta_url}}" class="m-button medium {{#if @custom.use_publication_cover}}{{#if @site.cover_image}}outlined on-backdrop {{else}}primary{{/if}}{{else}}primary{{/if}}">
+          <span>{{@custom.custom_cta_text}}</span>
+        </a>
+      {{else}}
+        {{#if @labs.members}}
+          {{^if @member}}
+            <a href="{{@site.url}}/signup" class="m-button medium {{#if @custom.use_publication_cover}}{{#if @site.cover_image}}outlined on-backdrop {{else}}primary{{/if}}{{else}}primary{{/if}}">
+              <span>{{t "Sign up"}}</span>
+            </a>
+          {{/if}}
+        {{/if}}
+      {{/if}}
+    </div>
+  </div>
+</section>
